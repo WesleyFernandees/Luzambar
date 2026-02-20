@@ -35,6 +35,16 @@
     }
     a{ color:inherit; text-decoration:none; }
     img{ width:100%; height:auto; display:block; }
+/* Centralização consistente de imagens (evita cortes estranhos) */
+.hero__card img,
+.card__img,
+.featured__card img,
+.modal__media img,
+.thumb img,
+.cartItem img{
+  object-position: center;
+}
+
     button{ font-family: inherit; }
     .container{ width:min(1120px, 92vw); margin:0 auto; }
 
@@ -280,12 +290,17 @@
     .about{ display:grid; grid-template-columns: 1.1fr .9fr; gap:18px; align-items:center; }
     @media (max-width: 860px){ .about{ grid-template-columns: 1fr; } }
     .about__media img{
-      border-radius: var(--radius);
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow);
-      aspect-ratio: 4 / 3;
-      object-fit: cover;
-    }
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+
+  /* Centraliza e mostra a imagem completa (sem cortes) */
+  width: 100%;
+  max-height: 420px;
+  object-fit: contain;
+  object-position: center;
+  background: rgba(0,0,0,.14);
+}
     .bullets{ color: var(--muted); line-height:1.7; padding-left: 18px; }
 
     .aromasBox{
@@ -326,25 +341,23 @@
     @media (max-width: 860px){
       .videoGrid{ grid-template-columns: 1fr; }
     }
-   .videoFrame{
+  .videoFrame{
   position: relative;
   border-radius: var(--radius);
   overflow:hidden;
   border: 1px solid rgba(255,255,255,.10);
   background: rgba(0,0,0,.10);
   isolation: isolate;
-
-  /* NOVO: limita altura e deixa “luxo” */
   max-height: 360px;
 }
 
 .videoFrame video{
   width: 100%;
-  height: 360px;         /* NOVO: controla o tamanho */
+  height: 360px;         /* controla tamanho */
   display: block;
-  object-fit: contain;   /* NOVO: NÃO corta, mostra tudo */
-  transform: none;       /* NOVO: remove zoom */
-  background: rgba(0,0,0,.20); /* NOVO: barras discretas se sobrar espaço */
+  object-fit: contain;   /* NÃO corta, mostra tudo */
+  transform: none;       /* sem zoom */
+  background: rgba(0,0,0,.20); /* barras discretas */
 }
 
 /* Mobile mais baixo */
@@ -364,34 +377,7 @@
       mix-blend-mode: soft-light;
       opacity: .95;
     }
-   .videoFrame{
-  position: relative;
-  border-radius: var(--radius);
-  overflow:hidden;
-  border: 1px solid rgba(255,255,255,.10);
-  background: rgba(0,0,0,.10);
-  isolation: isolate;
-
-  /* NOVO: limita altura e deixa “luxo” */
-  max-height: 360px;
-}
-
-.videoFrame video{
-  width: 100%;
-  height: 360px;         /* NOVO: controla o tamanho */
-  display: block;
-  object-fit: contain;   /* NOVO: NÃO corta, mostra tudo */
-  transform: none;       /* NOVO: remove zoom */
-  background: rgba(0,0,0,.20); /* NOVO: barras discretas se sobrar espaço */
-}
-
-/* Mobile mais baixo */
-@media (max-width: 860px){
-  .videoFrame{ max-height: 240px; }
-  .videoFrame video{ height: 240px; }
-}
-    }
-    .videoSide{ padding: 16px; }
+.videoSide{ padding: 16px; }
     .videoSide h3{ margin:0 0 8px; font-size: 18px; }
     .videoSide p{ margin:0 0 12px; color: var(--muted); line-height: 1.6; }
 
@@ -1523,6 +1509,4 @@
     updateCartUI(false);
   </script>
 </body>
-
 </html>
-
