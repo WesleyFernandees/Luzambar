@@ -364,13 +364,32 @@
       mix-blend-mode: soft-light;
       opacity: .95;
     }
-    .videoFrame video{
-      width:100%;
-      height:auto;
-      display:block;
-      aspect-ratio: 16 / 9;
-      object-fit: cover;
-      transform: scale(1.01);
+   .videoFrame{
+  position: relative;
+  border-radius: var(--radius);
+  overflow:hidden;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(0,0,0,.10);
+  isolation: isolate;
+
+  /* NOVO: limita altura e deixa “luxo” */
+  max-height: 360px;
+}
+
+.videoFrame video{
+  width: 100%;
+  height: 360px;         /* NOVO: controla o tamanho */
+  display: block;
+  object-fit: contain;   /* NOVO: NÃO corta, mostra tudo */
+  transform: none;       /* NOVO: remove zoom */
+  background: rgba(0,0,0,.20); /* NOVO: barras discretas se sobrar espaço */
+}
+
+/* Mobile mais baixo */
+@media (max-width: 860px){
+  .videoFrame{ max-height: 240px; }
+  .videoFrame video{ height: 240px; }
+}
     }
     .videoSide{ padding: 16px; }
     .videoSide h3{ margin:0 0 8px; font-size: 18px; }
@@ -1506,3 +1525,4 @@
 </body>
 
 </html>
+
